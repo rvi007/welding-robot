@@ -1,0 +1,11 @@
+{
+  "name": "T-joint fillet, 100 mm, zigzag weave",
+  "_comment": "Upright plate standing on a base plate, on the 100 mm work block. The joint runs along X (towards the robot) and the upright plate is on the +Y side. Welding towards the base with a push angle keeps the wrist far from its singular pose.",
+  "defaults": {"speed": 6, "travel_angle": 10},
+  "seams": [
+    {"name": "fillet", "type": "line",
+     "start": [280, 0, 100], "end": [180, 0, 100],
+     "plates": [[0, 0, 1], [0, -1, 0]],
+     "weave": {"pattern": "zigzag", "amplitude": 1.5, "wavelength": 3}}
+  ]
+}

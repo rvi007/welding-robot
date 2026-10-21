@@ -1,0 +1,44 @@
+{
+  "name": "Ravi WR-1 (Phase 1 desktop prototype)",
+  "units": "millimetres, degrees, kilograms, seconds",
+
+  "geometry": {
+    "_comment": "Must match cad/config.scad. d1 = shoulder axis height above the table, l2 = shoulder->elbow, l3 = elbow->wrist centre, tool = wrist centre->tool tip (TCP).",
+    "d1": 210.0,
+    "l2": 160.0,
+    "l3": 160.0,
+    "tool": 90.0
+  },
+
+  "joints": [
+    {"name": "J1 base yaw",      "axis": "X", "min": -150, "max": 150, "motor": "nema17_48", "gear_ratio": 26.851, "microsteps": 16, "max_speed": 45, "accel": 90,  "home": -150},
+    {"name": "J2 shoulder",      "axis": "Y", "min": -45,  "max": 100, "motor": "nema23_56", "gear_ratio": 10.0,   "microsteps": 16, "max_speed": 30, "accel": 60,  "home": -45},
+    {"name": "J3 elbow",         "axis": "Z", "min": -80,  "max": 75,  "motor": "nema17_48", "gear_ratio": 26.851, "microsteps": 16, "max_speed": 40, "accel": 90,  "home": 75},
+    {"name": "J4 forearm roll",  "axis": "A", "min": -170, "max": 170, "motor": "nema17_34", "gear_ratio": 5.1818, "microsteps": 16, "max_speed": 90, "accel": 180, "home": -170},
+    {"name": "J5 wrist pitch",   "axis": "B", "min": -115, "max": 35,  "motor": "nema17_34", "gear_ratio": 5.1818, "microsteps": 16, "max_speed": 90, "accel": 180, "home": -115}
+  ],
+
+  "motors": {
+    "_comment": "working_nm = usable torque at moderate speed (well below holding torque). gearbox_max_nm = the gearbox's rated output torque from its datasheet; the output is capped at this value.",
+    "nema17_48": {"working_nm": 0.35, "full_steps": 200, "gearbox_efficiency": 0.8,  "gearbox_max_nm": 3.0},
+    "nema17_34": {"working_nm": 0.16, "full_steps": 200, "gearbox_efficiency": 0.85, "gearbox_max_nm": 2.0},
+    "nema23_56": {"working_nm": 0.9,  "full_steps": 200, "gearbox_efficiency": 0.85, "gearbox_max_nm": 12.0}
+  },
+
+  "masses": {
+    "_comment": "Point masses used by the torque check. link: which moving link carries it (2 = upper arm, 3 = forearm, 5 = tool), at: distance along that link from its proximal joint axis.",
+    "items": [
+      {"name": "upper arm (printed)",     "kg": 0.20, "link": 2, "at": 80},
+      {"name": "J3 gearmotor",            "kg": 0.55, "link": 2, "at": 160},
+      {"name": "forearm (printed)",       "kg": 0.15, "link": 3, "at": 64},
+      {"name": "J4 gearmotor",            "kg": 0.37, "link": 3, "at": 90},
+      {"name": "J4 front plate + hub",    "kg": 0.06, "link": 3, "at": 132},
+      {"name": "wrist bracket + J5 motor","kg": 0.42, "link": 3, "at": 160},
+      {"name": "tool holder + tool",      "kg": 0.12, "link": 5, "at": 54},
+      {"name": "payload / cable drag",    "kg": 0.05, "link": 5, "at": 90}
+    ],
+    "dynamic_factor": 1.5
+  },
+
+  "ready_pose": [0, 0, 0, 0, 0]
+}

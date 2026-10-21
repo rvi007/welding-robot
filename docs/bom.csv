@@ -1,0 +1,22 @@
+category,qty,part,used_for,approx_usd
+motion,2,"NEMA17 48mm stepper + ~27:1 planetary gearbox, 8mm D-shaft","J1 base, J3 elbow",70
+motion,2,"NEMA17 34mm stepper + ~5:1 planetary gearbox, 8mm D-shaft","J4 roll, J5 wrist",55
+motion,1,"NEMA23 56mm stepper + 10:1 planetary gearbox, 14mm keyed shaft",J2 shoulder,80
+motion,2,6008-2RS bearing 40x68x15,J1 turntable,10
+motion,4,608-2RS bearing 8x22x7,J2/J3 idle pivots (2 spare),4
+electronics,1,Arduino Mega 2560,controller,18
+electronics,1,RAMPS 1.4,controller shield,8
+electronics,4,TMC2209 step/dir driver,"J1, J3, J4, J5",20
+electronics,1,DM542T stepper driver,J2,30
+electronics,1,12V 15A power supply,RAMPS,25
+electronics,1,24-36V 5A power supply,DM542T,22
+electronics,5,KW11 / SS-5GL lever microswitch,homing,6
+electronics,1,12V relay module,arc output (D10),4
+electronics,1,"Mushroom E-stop, 2x NC",safety,10
+electronics,1,Mains inlet with switch and fuse,power,6
+electronics,1,"Cables, ferrites, connectors, spiral wrap",wiring,30
+hardware,20,M3 heat-set insert,printed parts,8
+hardware,1,"Screw kit: M2, M3, M4, M5 button/socket/countersunk, M8x50, M8x45, nuts, washers, set screws",assembly,25
+printing,2,PETG filament 1kg,printed parts,40
+tool,1,12mm pointer rod or laser module,calibration,5
+tool,1,Marker refill + 12mm sleeve,pen tests,2

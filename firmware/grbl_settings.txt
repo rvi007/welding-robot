@@ -1,0 +1,39 @@
+; grbl-Mega-5X settings for Ravi WR-1 (Phase 1 desktop prototype)
+; paste these lines one at a time into a serial terminal (115200 baud)
+$0=10    ; step pulse, microseconds
+$1=255    ; keep motors energised when idle (the arm must hold against gravity)
+$2=0    ; step pulse invert mask
+$3=0    ; direction invert mask: set bits for joints that turn the wrong way
+$4=0    ; step enable invert
+$5=0    ; limit pins invert (0 = normally-open switches to GND)
+$10=1    ; status report: machine position
+$11=0.010    ; junction deviation
+$13=0    ; report in mm (here: degrees)
+$20=0    ; soft limits off: Ravi.py checks joint limits before writing G-code
+$21=0    ; hard limits off until every switch is tested
+$22=1    ; homing cycle enabled
+$23=27    ; homing direction mask (computed from 'home' angles)
+$24=60    ; homing locate rate, deg/min
+$25=600    ; homing seek rate, deg/min
+$26=250    ; homing debounce, ms
+$27=2.000    ; homing pull-off, deg
+$100=238.676    ; J1 base yaw: steps per degree
+$101=88.889    ; J2 shoulder: steps per degree
+$102=238.676    ; J3 elbow: steps per degree
+$103=46.060    ; J4 forearm roll: steps per degree
+$104=46.060    ; J5 wrist pitch: steps per degree
+$110=2700    ; J1 base yaw: max rate, deg/min
+$111=1800    ; J2 shoulder: max rate, deg/min
+$112=2400    ; J3 elbow: max rate, deg/min
+$113=5400    ; J4 forearm roll: max rate, deg/min
+$114=5400    ; J5 wrist pitch: max rate, deg/min
+$120=90    ; J1 base yaw: acceleration, deg/s^2
+$121=60    ; J2 shoulder: acceleration, deg/s^2
+$122=90    ; J3 elbow: acceleration, deg/s^2
+$123=180    ; J4 forearm roll: acceleration, deg/s^2
+$124=180    ; J5 wrist pitch: acceleration, deg/s^2
+$130=300    ; J1 base yaw: max travel, deg
+$131=145    ; J2 shoulder: max travel, deg
+$132=155    ; J3 elbow: max travel, deg
+$133=340    ; J4 forearm roll: max travel, deg
+$134=150    ; J5 wrist pitch: max travel, deg

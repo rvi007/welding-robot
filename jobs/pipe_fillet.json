@@ -1,0 +1,11 @@
+{
+  "name": "Tube-to-plate fillet, 50 mm tube, 240 deg arc",
+  "_comment": "50 mm OD tube standing on a plate on the 100 mm work block, tube centre at X=215 Y=0. The arm covers the far side and both flanks (-120..+120 deg). For the near side, turn the part half a turn and run again with start_angle -60 and sweep 120, or add a rotary positioner (Phase 2).",
+  "defaults": {"speed": 5, "travel_angle": 8},
+  "seams": [
+    {"name": "tube", "type": "circle",
+     "center": [215, 0, 100], "axis": [0, 0, 1], "radius": 25,
+     "start_angle": -120, "sweep": 240,
+     "normal": "fillet_outside"}
+  ]
+}
