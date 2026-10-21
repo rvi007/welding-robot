@@ -73,3 +73,19 @@ def test_inverse_time_feed_matches_step_time():
     feeds = [float(line.rsplit("F", 1)[1]) for line in text.splitlines() if line.startswith("G1")]
     assert len(feeds) == len(moves)
     assert all(np.isclose(f, 60 / m.dt, rtol=1e-3) for f, m in zip(feeds, moves))
+
+
+def test_keep_out_rejects_wrist_crash():
+    # Upright plate on the +Y side makes the torch lean +Y, which swings the
+    # J5 motor down into the work: the planner must refuse it.
+    job = weld.load_job(JOBS[1])            # fillet_straight
+    job["seams"][0]["plates"] = [[0, 0, 1], [0, -1, 0]]
+    job["keep_out"][2] = {"name": "upright plate", "min": [175, 0, 100], "max": [285, 4, 145]}
+    with pytest.raises(gcode.PlanError, match="J5 motor"):
+        gcode.solve(weld.plan_job(job), ROBOT)
+
+
+def test_keep_out_is_optional():
+    job = weld.load_job(JOBS[1])
+    job.pop("keep_out")
+    assert gcode.solve(weld.plan_job(job), ROBOT).steps

@@ -1,6 +1,6 @@
 # Printing Guide
 
-All STLs are in [`../stl`](../stl), already in print orientation (flat face down, no supports needed). They fit a 220 × 220 × 250 mm bed. The upper arm halves are 218 mm long, so place them along the bed diagonal if your printer is tight.
+All STLs are in [`../stl`](../stl), already in print orientation (flat face down, no supports needed). They fit a 220 × 220 × 250 mm bed. The upper arm halves are 218 mm long, so place them along the bed diagonal if your printer is tight. Pictures, filament and hardware for every part are in the **[Parts Catalog](PARTS.md)**.
 
 ## Before anything else: `fit_test.stl`
 
@@ -40,10 +40,13 @@ Defaults for everything not listed below: 0.4 mm nozzle, 0.2 mm layers, **4 wall
 | `forearm_drive` / `forearm_idle` | 1 + 1 | default | 180 g |
 | `wrist` | 1 | 6 walls, 60 % infill | 15 g |
 | `tool_holder` | 1 | 6 walls, 60 % infill; the hub ends overhang 1–2 mm (fine without support) | 15 g |
-| `spacer_m8` | 2 | default | 1 g |
+| `j2_cover` / `j3_cover` | 1 + 1 | 3 walls, 20 % (they're thin-walled, so they come out nearly solid) | 37 g |
+| `spacer_m8` | 2 | 100 % | 1 g |
 | `endstop_clip` | 5 | default | 10 g |
 
-Total is about **1.3 kg** and **70–90 hours** of printing.
+Total is about **1.5 kg**: 0.55 kg orange for the arm and covers, 0.95 kg graphite for the rest. That's **110–140 hours** of printing at typical speeds. A 0.6 mm nozzle on the big base parts saves a lot of time.
+
+**Branding:** the base has raised **RAVI / WR-1** letters. The upper arm, turntable and covers have recessed **RAVI**, and the forearm has recessed **WR-1**. Go over the letters with a white paint pen after printing. The font (Inter Bold, SIL Open Font License) is in `cad/fonts`, so the STLs rebuild the same on any computer.
 
 ## After printing
 

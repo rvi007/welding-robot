@@ -1,6 +1,6 @@
 # Assembly Guide
 
-![assembly](images/assembly.png)
+![drive side](images/drive.png)
 
 Joint naming and zero positions are the same everywhere (software, CAD and firmware):
 
@@ -74,7 +74,12 @@ Screw an `endstop_clip` with a microswitch at each joint. The lever must be hit 
 
 The `home` angles in `robot.json` are where each joint ends up **after** homing, including grbl's 2° pull-off. You measure the real values during calibration ([ELECTRONICS.md](ELECTRONICS.md#calibration)), so exact switch placement doesn't matter. Repeatability does.
 
-## 6. Mount and cable management
+## 6. Covers and finish
+
+- Push `j2_cover` over the back of the J2 motor and `j3_cover` over the back of the J3 motor. Turn each so its slot lines up with the motor's cable outlet. The crush ribs hold them; no screws needed.
+- Fill the RAVI / WR-1 lettering with a white paint pen and wipe off the excess while it's wet.
+
+## 7. Mount and cable management
 
 - **Clamp or bolt the base to the bench** through the four slots. At full reach the arm puts about 8 N·m of tipping moment on the base.
 - Give the cables loose service loops at J1 (±150°) and J4 (±170°). Use spiral wrap, and tie down at the turntable, the upper arm and the forearm cable exit.

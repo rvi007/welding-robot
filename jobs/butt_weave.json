@@ -1,11 +1,62 @@
 {
   "name": "Flat butt joint, 100 mm, sine weave",
   "_comment": "Two flat plates on the 100 mm work block, joint along X, welded towards the robot.",
-  "defaults": {"speed": 5, "travel_angle": 12},
+  "defaults": {
+    "speed": 5,
+    "travel_angle": 12
+  },
+  "keep_out": [
+    {
+      "name": "work block",
+      "min": [
+        160,
+        -95,
+        0
+      ],
+      "max": [
+        300,
+        95,
+        96
+      ]
+    },
+    {
+      "name": "base plate",
+      "min": [
+        170,
+        -45,
+        96
+      ],
+      "max": [
+        290,
+        45,
+        100
+      ]
+    }
+  ],
   "seams": [
-    {"name": "butt", "type": "line",
-     "start": [270, 0, 100], "end": [170, 0, 100],
-     "normal": [0, 0, 1],
-     "weave": {"pattern": "sine", "amplitude": 2.5, "wavelength": 5}}
+    {
+      "name": "butt",
+      "type": "line",
+      "start": [
+        270,
+        0,
+        100
+      ],
+      "end": [
+        170,
+        0,
+        100
+      ],
+      "normal": [
+        0,
+        0,
+        1
+      ],
+      "weave": {
+        "pattern": "sine",
+        "amplitude": 2.5,
+        "wavelength": 5
+      }
+    }
   ]
 }

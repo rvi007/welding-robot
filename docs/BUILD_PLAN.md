@@ -55,7 +55,7 @@ This plan takes the project from nothing to a robot that welds real seams. It ru
 | # | Milestone | Done when |
 |---|---|---|
 | M0 | Parts ordered, printer tuned | `fit_test.stl` printed: bearings press in by hand, the gearbox pilot and screws fit, shafts slide into the D-bore and keyway, an insert sets straight |
-| M1 | All parts printed | 15 STLs printed in PETG (see [PRINTING.md](PRINTING.md)), inserts set |
+| M1 | All parts printed | 17 STLs (22 pieces) printed in PETG (see [PRINTING.md](PRINTING.md) and [PARTS.md](PARTS.md)), inserts set |
 | M2 | Mechanics assembled | Every joint turns by hand through its full range with no rubbing; the arm holds the ready pose with motors off (or sags slowly, with no bind) |
 | M3 | Electronics + firmware | Each joint jogs in the right direction; homing works 10 times in a row |
 | M4 | Calibration | Joint zero offsets and tool length measured; FK matches a ruler to ±2 mm across the work block |
@@ -67,7 +67,7 @@ This plan takes the project from nothing to a robot that welds real seams. It ru
 | Week | Work |
 |---|---|
 | 1 | Order parts (gearmotors take 1–3 weeks). Print and tune `fit_test`. Measure the real gearboxes and update `cad/config.scad`, then `cad/build.sh`. |
-| 2–3 | Print all parts (~80 h of printing, ~1.3 kg PETG). Set the heat-set inserts. |
+| 2–3 | Print all parts (110–140 h of printing, ~1.5 kg PETG). Set the heat-set inserts. |
 | 3–4 | Mechanical assembly ([ASSEMBLY.md](ASSEMBLY.md)). |
 | 4–5 | Wiring, flash firmware, settings, limit switches, homing ([ELECTRONICS.md](ELECTRONICS.md)). |
 | 5–6 | Calibration, pen tests, accuracy log. Fix whatever the tests reveal (expect a Rev B of 2–4 parts). |
@@ -77,9 +77,10 @@ This plan takes the project from nothing to a robot that welds real seams. It ru
 | Risk | Likelihood | Mitigation |
 |---|---|---|
 | Gearbox dimensions differ from the defaults | high | Measure first, edit `GM17_*`/`GM23_*` in `cad/config.scad`, print `fit_test` before anything else |
-| Gearbox backlash (up to ~1° on cheap planetary boxes) shows up as 2–7 mm error at the tool | high | Gravity preloads J2/J3. Approach every seam from the same direction (the planner already does). Buy ≤20 arcmin gearboxes for Phase 2 |
+| Gearbox backlash (sellers list 1–3° for budget planetary boxes) shows up as several mm of error at the tool | high | Gravity preloads J2/J3. Approach every seam from the same direction (the planner already does). Buy ≤20 arcmin gearboxes for Phase 2 |
 | Shoulder too weak for a heavier tool | medium | `python Ravi.py torque` after weighing the real parts; add a gas spring or counterweight on J2 |
 | Wrist singularity (torch in line with the forearm) | medium | `python Ravi.py reach` to place parts; the planner refuses paths that would flip the wrist |
+| The J5 motor hitting the work when the torch leans towards its side | medium | Add `keep_out` boxes to every job; `plan` refuses colliding paths. Lean the torch away from the J5 motor (see SOFTWARE.md). |
 | Cable snagging on J1/J4 | medium | Service loops, spiral wrap, ±150° / ±170° soft limits |
 | PLA creep under constant load | medium | Print in PETG or ASA; keep the motors energised (`$1=255`) |
 
@@ -146,7 +147,8 @@ Pick one route:
 
 | Area | Status |
 |---|---|
-| Kinematics, weld planner, G-code, simulator, torque check | Working and tested (`python -m pytest`) |
-| CAD (OpenSCAD, 15 printable parts) | Rev A: generated and checked for closed meshes and bed fit, **not yet test-printed** |
+| Kinematics, weld planner, collision check, G-code, simulator, torque check | Working and tested (`python -m pytest`, 20 tests) |
+| CAD (OpenSCAD, 17 printable parts, RAVI branding, motor covers) | Rev B: generated and checked for closed meshes and bed fit, **not yet test-printed** |
+| Realistic motor, gearbox, bearing and bolt models; 3D viewer; renders | Done (`cad/vitamins.scad`, `docs/viewer`) |
 | Firmware | Uses grbl-Mega-5X; settings generated from `robot.json` |
 | Phase 2 mechanics | Planned only (this document) |

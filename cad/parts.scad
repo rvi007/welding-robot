@@ -5,8 +5,20 @@
 // =====================================================================
 
 include <config.scad>
+use <fonts/Inter-Bold.otf>
 
 eps = 0.01;
+
+BRAND      = "RAVI";
+MODEL      = "WR-1";
+BRAND_FONT = "Inter:style=Bold";
+
+// Text lying in XY (reads along +X, up = +Y), extruded +Z.
+module brand_text(t, size, depth)
+    linear_extrude(depth) text(t, size = size, font = BRAND_FONT, halign = "center", valign = "center");
+
+ua_bolts = [[-18, 0], [10, 17], [10, -17], [50, 0]];
+fa_bolts = [[62, 25], [62, -25], [90, 25], [90, -25], [116, 25], [116, -25], [-12, 13], [-12, -13]];
 
 // ---------------------------------------------------------------------
 //  helpers
@@ -105,11 +117,27 @@ module base_floor() {
     }
 }
 
-module base_shell() {
+// Raised logo on the front of the base (paint the letters for contrast).
+module logo_base() {
+    intersection() {
+        translate([shell_r - 16, 0, 78]) rotate([90, 0, 90]) brand_text(BRAND, 24, 20);
+        difference() { cylinder(r = shell_r + 1.2, h = shell_h); translate([0, 0, -1]) cylinder(r = shell_r - 1, h = shell_h + 2); }
+    }
+    intersection() {
+        translate([shell_r - 16, 0, 52]) rotate([90, 0, 90]) brand_text(MODEL, 9, 20);
+        difference() { cylinder(r = shell_r + 0.8, h = shell_h); translate([0, 0, -1]) cylinder(r = shell_r - 1, h = shell_h + 2); }
+    }
+}
+
+module base_shell(logo = true) {
+    if (logo) logo_base();
     difference() {
         union() {
             difference() {
-                cylinder(r = shell_r, h = shell_h);
+                union() {
+                    cylinder(r = shell_r, h = shell_h - 3);
+                    translate([0, 0, shell_h - 3]) cylinder(r1 = shell_r, r2 = shell_r - 3, h = 3);
+                }
                 translate([0, 0, -eps]) cylinder(r = shell_r - wall, h = shell_h - deck_t + eps);
             }
             translate([0, 0, tower_z]) cylinder(r = tower_r, h = shell_h - tower_z);
@@ -191,7 +219,8 @@ module turntable() {
     cr = 32;
     difference() {
         union() {
-            cylinder(r = tt_r, h = tt_t);
+            cylinder(r = tt_r, h = tt_t - 1.5);
+            translate([0, 0, tt_t - 1.5]) cylinder(r1 = tt_r, r2 = tt_r - 1.5, h = 1.5);
             translate([0, -yo, 0]) cheek(cheek_t, sh_az, cr);
             translate([0, yi, 0]) cheek(cheek_t, sh_az, cr);
             for (s = [-1, 1], x = [-cr - 1, cr - 3]) translate([x, 0, 0])      // outer gussets
@@ -208,8 +237,14 @@ module turntable() {
         }
         for (a = [30, 150, 270]) rotate(a) translate([bolt_r, 0, -eps]) cylinder(d = insert_d, h = insert_h + 2);
         translate([0, 0, -eps]) cylinder(d = 14, h = tt_t + 2 * eps);
+        logo_turntable();
     }
 }
+
+// Debossed 0.8 mm into the outside of the idle cheek (fill with paint).
+module logo_turntable()
+    translate([0, sh_gap / 2 + cheek_t - 0.8, tt_t + 17]) rotate([90, 0, 180])
+        brand_text(BRAND, 10, 0.8 + eps);
 
 // ---------------------------------------------------------------------
 //  upper arm (J2 output, carries J3). Two halves split on the arm's
@@ -232,11 +267,19 @@ module ua_half_solid() {      // idle half (y >= 0)
     translate([50, 0, 0]) rotate([-90, 0, 0]) cylinder(d = 12, h = 12);         // spacer boss
 }
 
+// Debossed 0.8 mm along the outer face of each half, reading up the arm.
+module logo_upper_arm(side) {
+    yo = ua_w / 2;
+    if (side < 0) translate([82, -yo + 0.8, 0]) rotate([90, 0, 0]) brand_text(BRAND, 12, 0.8 + eps);
+    else          translate([82,  yo - 0.8, 0]) rotate([90, 0, 180]) brand_text(BRAND, 12, 0.8 + eps);
+}
+
 module upper_arm(side) {
     yo = ua_w / 2;
-    halves_bolts = [[-18, 0], [10, 17], [10, -17], [50, 0]];
+    halves_bolts = ua_bolts;
     difference() {
         mirror([0, side < 0 ? 1 : 0, 0]) ua_half_solid();
+        logo_upper_arm(side);
         if (side < 0) {
             // J2 keyed shaft
             translate([0, -yo - eps, 0]) rotate([-90, 0, 0]) shaft_bore(GM23_56, 30);
@@ -272,16 +315,25 @@ module upper_arm(side) {
 module fa_profile() {
     hull() {
         circle(r = fa_hub_r);
-        translate([32, -fa_h / 2]) square([j4_face_x + plate_t - 32, fa_h]);
+        translate([32, -fa_h / 2]) square([1, fa_h]);
+        for (z = [-1, 1]) translate([j4_face_x + plate_t - 5, z * (fa_h / 2 - 5)]) circle(r = 5);
     }
+}
+
+// Debossed 0.6 mm into each outer face of the forearm (motor pocket wall is 2.4 mm).
+module logo_forearm(side) {
+    yo = fa_w / 2;
+    if (side < 0) translate([88, -yo + 0.6, 0]) rotate([90, 0, 0]) brand_text(MODEL, 10, 0.6 + eps);
+    else          translate([88,  yo - 0.6, 0]) rotate([90, 0, 180]) brand_text(MODEL, 10, 0.6 + eps);
 }
 
 module forearm(side) {
     yo = fa_w / 2;
     pocket = gm_sq(GM17_34) + 0.8;
-    bolts = [[62, 25], [62, -25], [90, 25], [90, -25], [116, 25], [116, -25], [-12, 13], [-12, -13]];
+    bolts = fa_bolts;
     difference() {
         mirror([0, side < 0 ? 1 : 0, 0]) rotate([-90, 0, 0]) linear_extrude(yo) fa_profile();
+        logo_forearm(side);
         // J4 gearmotor pocket + cable channel
         translate([j4_face_x - gm_len(GM17_34) - 1, -pocket / 2, -pocket / 2])
             cube([gm_len(GM17_34) + 1 + eps, pocket, pocket]);
@@ -365,6 +417,40 @@ module tool_holder() {
 }
 
 // ---------------------------------------------------------------------
+//  motor covers: push-on caps over the back of the J2 and J3 motors.
+//  Frame = gearmotor frame (output face at z = 0, motor towards -Z).
+//  Four crush ribs grip the motor; the slot clears the cable outlet.
+// ---------------------------------------------------------------------
+module cover_shape(s, c, len, wall) {
+    sq = s + 0.7;
+    difference() {
+        hull() for (z = [0, len - 2]) translate([0, 0, z])
+            linear_extrude(2) offset(r = wall) chamfer_sq2(sq, c);
+        translate([0, 0, wall]) linear_extrude(len) chamfer_sq2(sq, c);
+    }
+    for (a = [0 : 90 : 270]) rotate(a) translate([sq / 2 - 0.35, -1.5, wall + 4]) cube([0.6, 3, len - wall - 6]);
+}
+module chamfer_sq2(s, c) polygon([
+    [-s / 2 + c, -s / 2], [s / 2 - c, -s / 2], [s / 2, -s / 2 + c], [s / 2, s / 2 - c],
+    [s / 2 - c, s / 2], [-s / 2 + c, s / 2], [-s / 2, s / 2 - c], [-s / 2, -s / 2 + c]]);
+
+module logo_cover(g, size) {
+    translate([0, 0, -gm_len(g) - 2.2 + 0.8]) rotate([0, 180, 180]) brand_text(BRAND, size, 0.8 + eps);
+}
+
+module motor_cover(g, len, size) {
+    s = gm_sq(g);
+    c = s > 50 ? 5.5 : 4.5;
+    difference() {
+        translate([0, 0, -gm_len(g) - 2.2]) cover_shape(s, c, len, 2.2);
+        translate([s / 2 - 4, -8, -gm_len(g) - 3]) cube([12, 16, 15]);          // cable outlet slot
+        logo_cover(g, size);
+    }
+}
+module j2_cover() motor_cover(GM23_56, 48, 13);
+module j3_cover() motor_cover(GM17_48, 36, 10);
+
+// ---------------------------------------------------------------------
 //  small parts
 // ---------------------------------------------------------------------
 module spacer_m8() difference() { cylinder(d = 11.5, h = 4); translate([0, 0, -eps]) cylinder(d = 8.4, h = 4 + 2 * eps); }
@@ -411,5 +497,7 @@ module print_forearm_idle()      translate([0, 0, fa_w / 2]) rotate([-90, 0, 0])
 module print_wrist()             translate([0, 0, -j5_face_y]) rotate([90, 0, 0]) wrist();
 module print_tool_holder()       translate([0, 0, tool_stop + clamp_len]) tool_holder();
 module print_spacer_m8()         spacer_m8();
+module print_j2_cover()          translate([0, 0, gm_len(GM23_56) + 2.2]) j2_cover();
+module print_j3_cover()          translate([0, 0, gm_len(GM17_48) + 2.2]) j3_cover();
 module print_endstop_clip()      endstop_clip();
 module print_fit_test()          fit_test();

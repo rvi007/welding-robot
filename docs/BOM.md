@@ -1,14 +1,14 @@
 # Bill of Materials: Phase 1 (desktop prototype)
 
-Prices are rough single-unit online prices in USD, to help with budgeting. A machine-readable copy is in [bom.csv](bom.csv).
+Prices are rough single-unit online prices in USD, to help with budgeting. A machine-readable copy is in [bom.csv](bom.csv). For the hardware each printed part needs, with pictures, see the **[Parts Catalog](PARTS.md)**.
 
 ## Motion
 
 | Qty | Part | Used for | Notes | ~USD |
 |---|---|---|---|---|
-| 2 | NEMA17 48 mm stepper (≈1.7 A) with planetary gearbox ≈27:1, 8 mm D-shaft | J1 base, J3 elbow | Gearbox rated output ≥3 N·m. Use the exact ratio from the datasheet in `robot.json`. | 70 |
-| 2 | NEMA17 34 mm stepper with planetary gearbox ≈5:1, 8 mm D-shaft | J4 roll, J5 wrist | | 55 |
-| 1 | NEMA23 56 mm stepper (≈2.8 A, ≥1.2 N·m) with 10:1 planetary gearbox, 14 mm keyed shaft | J2 shoulder | Gearbox rated output ≥10 N·m | 80 |
+| 2 | NEMA17 48 mm stepper (1.68 A) with planetary gearbox ≈27:1 (exact 26.85:1), 8 mm D-shaft, e.g. StepperOnline **17HS19-1684S-PG27** | J1 base, J3 elbow | Max permissible output torque 3 N·m. Sellers list no-load backlash between 1° and 3°. | 70 |
+| 2 | NEMA17 34 mm stepper with planetary gearbox ≈5:1 (exact 5.18:1), 8 mm D-shaft, e.g. StepperOnline **17HS13-0404S-PG5** | J4 roll, J5 wrist | The 48 mm `17HS19-1684S-PG5` also works, but is heavier. | 55 |
+| 1 | NEMA23 56 mm stepper (2.8 A, ≥1.2 N·m) with 10:1 planetary gearbox, 14 mm keyed shaft, **bought as one unit** | J2 shoulder | Gearbox rated output ≥10 N·m | 80 |
 | 2 | 6008-2RS bearing (40×68×15) | J1 turntable | | 10 |
 | 2 (+2 spare) | 608-2RS bearing (8×22×7) | J2/J3 idle-side pivots | | 4 |
 
@@ -53,7 +53,8 @@ Prices are rough single-unit online prices in USD, to help with budgeting. A mac
 
 | Qty | Part | Notes | ~USD |
 |---|---|---|---|
-| 2 kg | PETG (or ASA) filament | ~1.3 kg used | 40 |
+| 1 kg + 1 kg | PETG (or ASA) filament: orange (arm, covers) + graphite/black (base, turntable, small parts) | ~0.55 kg orange + ~0.95 kg graphite used | 40 |
+| 1 | White paint pen | fills the RAVI / WR-1 lettering | 4 |
 | 1 | Ø12 mm pointer: aluminium rod with a sharpened tip, or a 12 mm laser dot module | for calibration (TCP) | 5 |
 | 1 | Fine marker refill in a printed or taped 12 mm sleeve | pen-drawing tests | 2 |
 | 1 | 100 mm tall work block (wood or steel, ~200 × 160 mm top) | sets the work height the examples assume | — |

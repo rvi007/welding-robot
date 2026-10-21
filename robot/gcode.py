@@ -13,6 +13,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
+from .collision import first_hit
 from .config import Robot
 from .kinematics import Unreachable, fk, ik
 from .weld import Arc, Comment, Dwell, Linear, Plan, Rapid
@@ -83,6 +84,9 @@ def solve(plan: Plan, robot: Robot) -> Trajectory:
                     raise PlanError(f"cannot reach approach point {np.round(op.tip, 1).tolist()}: {e}")
             else:
                 target = np.asarray(robot.ready_pose, float)
+            hit = first_hit(robot, target, plan.keep_out, plan.clearance)
+            if hit:
+                raise PlanError(f"approach pose collides: {hit}")
             traj.steps.append(Step("rapid", q=target))
             q = target
         elif isinstance(op, Linear):
@@ -97,6 +101,10 @@ def solve(plan: Plan, robot: Robot) -> Trajectory:
                     f"{robot.joints[j].name} jumps {delta[j]:.0f} deg near "
                     f"{np.round(op.tip, 1).tolist()} (wrist flip or singularity). "
                     "Change the travel/work angle or move the part.")
+            hit = first_hit(robot, target, plan.keep_out, plan.clearance)
+            if hit:
+                raise PlanError(f"collision near {np.round(op.tip, 1).tolist()}: {hit}. "
+                                "Turn or move the part, or change the torch angles.")
             dt_min = float(np.max(delta / vmax))
             dt = op.dt
             if dt <= 0:

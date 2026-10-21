@@ -2,9 +2,64 @@
   "name": "Phase 1 demo - draw a 100 mm square with a pen",
   "_comment": "Tape paper on top of the 100 mm work block in front of the robot. 'Arc on' = pen down.",
   "tool_length": 90,
-  "defaults": {"speed": 20, "travel_angle": 0, "approach": 20, "arc_start_dwell": 0, "crater_dwell": 0},
+  "defaults": {
+    "speed": 20,
+    "travel_angle": 0,
+    "approach": 20,
+    "arc_start_dwell": 0,
+    "crater_dwell": 0
+  },
+  "keep_out": [
+    {
+      "name": "work block",
+      "min": [
+        160,
+        -95,
+        0
+      ],
+      "max": [
+        300,
+        95,
+        100
+      ]
+    }
+  ],
   "seams": [
-    {"name": "square", "type": "polyline", "normal": [0, 0, 1],
-     "points": [[170, -50, 100], [270, -50, 100], [270, 50, 100], [170, 50, 100], [170, -50, 100]]}
+    {
+      "name": "square",
+      "type": "polyline",
+      "normal": [
+        0,
+        0,
+        1
+      ],
+      "points": [
+        [
+          170,
+          -50,
+          100
+        ],
+        [
+          270,
+          -50,
+          100
+        ],
+        [
+          270,
+          50,
+          100
+        ],
+        [
+          170,
+          50,
+          100
+        ],
+        [
+          170,
+          -50,
+          100
+        ]
+      ]
+    }
   ]
 }

@@ -1,0 +1,335 @@
+{
+ "geometry": {
+  "d1": 210.0,
+  "l2": 160.0,
+  "l3": 160.0,
+  "tool": 90.0
+ },
+ "joints": [
+  {
+   "name": "J1 base yaw",
+   "min": -150,
+   "max": 150
+  },
+  {
+   "name": "J2 shoulder",
+   "min": -45,
+   "max": 100
+  },
+  {
+   "name": "J3 elbow",
+   "min": -80,
+   "max": 75
+  },
+  {
+   "name": "J4 forearm roll",
+   "min": -170,
+   "max": 170
+  },
+  {
+   "name": "J5 wrist pitch",
+   "min": -115,
+   "max": 35
+  }
+ ],
+ "materials": {
+  "printed": {
+   "color": "#e8711a",
+   "metalness": 0.0,
+   "roughness": 0.55
+  },
+  "printed2": {
+   "color": "#30353d",
+   "metalness": 0.0,
+   "roughness": 0.6
+  },
+  "logo": {
+   "color": "#f4f4f4",
+   "metalness": 0.0,
+   "roughness": 0.4
+  },
+  "alu": {
+   "color": "#cfd2d6",
+   "metalness": 1.0,
+   "roughness": 0.32
+  },
+  "black": {
+   "color": "#26282c",
+   "metalness": 0.55,
+   "roughness": 0.45
+  },
+  "steel": {
+   "color": "#b4b8bd",
+   "metalness": 1.0,
+   "roughness": 0.25
+  },
+  "rubber": {
+   "color": "#151515",
+   "metalness": 0.0,
+   "roughness": 0.85
+  },
+  "table": {
+   "color": "#5b6067",
+   "metalness": 0.85,
+   "roughness": 0.55
+  },
+  "block": {
+   "color": "#8d9298",
+   "metalness": 0.6,
+   "roughness": 0.6
+  },
+  "coupon": {
+   "color": "#8a8f95",
+   "metalness": 0.9,
+   "roughness": 0.45
+  }
+ },
+ "links": {
+  "0": [
+   {
+    "file": "L0_printed2.stl",
+    "mat": "printed2"
+   },
+   {
+    "file": "L0_logo.stl",
+    "mat": "logo"
+   },
+   {
+    "file": "L0_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "L0_black.stl",
+    "mat": "black"
+   },
+   {
+    "file": "L0_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "L0_rubber.stl",
+    "mat": "rubber"
+   }
+  ],
+  "1": [
+   {
+    "file": "L1_printed2.stl",
+    "mat": "printed2"
+   },
+   {
+    "file": "L1_printed.stl",
+    "mat": "printed"
+   },
+   {
+    "file": "L1_logo.stl",
+    "mat": "logo"
+   },
+   {
+    "file": "L1_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "L1_black.stl",
+    "mat": "black"
+   },
+   {
+    "file": "L1_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "L1_rubber.stl",
+    "mat": "rubber"
+   }
+  ],
+  "2": [
+   {
+    "file": "L2_printed.stl",
+    "mat": "printed"
+   },
+   {
+    "file": "L2_logo.stl",
+    "mat": "logo"
+   },
+   {
+    "file": "L2_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "L2_black.stl",
+    "mat": "black"
+   },
+   {
+    "file": "L2_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "L2_rubber.stl",
+    "mat": "rubber"
+   }
+  ],
+  "3": [
+   {
+    "file": "L3_printed.stl",
+    "mat": "printed"
+   },
+   {
+    "file": "L3_logo.stl",
+    "mat": "logo"
+   },
+   {
+    "file": "L3_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "L3_black.stl",
+    "mat": "black"
+   },
+   {
+    "file": "L3_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "L3_rubber.stl",
+    "mat": "rubber"
+   }
+  ],
+  "4": [
+   {
+    "file": "L4_printed.stl",
+    "mat": "printed"
+   },
+   {
+    "file": "L4_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "L4_black.stl",
+    "mat": "black"
+   },
+   {
+    "file": "L4_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "L4_rubber.stl",
+    "mat": "rubber"
+   }
+  ],
+  "5": [
+   {
+    "file": "L5_printed2.stl",
+    "mat": "printed2"
+   },
+   {
+    "file": "L5_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "L5_steel.stl",
+    "mat": "steel"
+   }
+  ],
+  "6": [
+   {
+    "file": "L6_table.stl",
+    "mat": "table"
+   },
+   {
+    "file": "L6_block.stl",
+    "mat": "block"
+   },
+   {
+    "file": "L6_coupon.stl",
+    "mat": "coupon"
+   }
+  ]
+ },
+ "catalog": {
+  "gm17_48": [
+   {
+    "file": "C_gm17_48_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "C_gm17_48_black.stl",
+    "mat": "black"
+   },
+   {
+    "file": "C_gm17_48_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "C_gm17_48_rubber.stl",
+    "mat": "rubber"
+   },
+   {
+    "file": "C_gm17_48_logo.stl",
+    "mat": "logo"
+   }
+  ],
+  "gm17_34": [
+   {
+    "file": "C_gm17_34_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "C_gm17_34_black.stl",
+    "mat": "black"
+   },
+   {
+    "file": "C_gm17_34_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "C_gm17_34_rubber.stl",
+    "mat": "rubber"
+   },
+   {
+    "file": "C_gm17_34_logo.stl",
+    "mat": "logo"
+   }
+  ],
+  "gm23_56": [
+   {
+    "file": "C_gm23_56_alu.stl",
+    "mat": "alu"
+   },
+   {
+    "file": "C_gm23_56_black.stl",
+    "mat": "black"
+   },
+   {
+    "file": "C_gm23_56_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "C_gm23_56_rubber.stl",
+    "mat": "rubber"
+   },
+   {
+    "file": "C_gm23_56_logo.stl",
+    "mat": "logo"
+   }
+  ],
+  "b608": [
+   {
+    "file": "C_b608_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "C_b608_rubber.stl",
+    "mat": "rubber"
+   }
+  ],
+  "b6008": [
+   {
+    "file": "C_b6008_steel.stl",
+    "mat": "steel"
+   },
+   {
+    "file": "C_b6008_rubber.stl",
+    "mat": "rubber"
+   }
+  ]
+ }
+}

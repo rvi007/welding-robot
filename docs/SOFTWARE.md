@@ -14,7 +14,7 @@ python Ravi.py plan jobs/fillet_straight.json --png --gif   # G-code + preview i
 python Ravi.py home --port /dev/ttyACM0
 python Ravi.py jog  --port /dev/ttyACM0 0 20 0 0 0
 python Ravi.py run out/fillet_straight.gcode --port /dev/ttyACM0
-python -m pytest                        # 18 tests: kinematics, planner, G-code, statics
+python -m pytest                        # 20 tests: kinematics, planner, collisions, G-code, statics
 ```
 
 On Windows the port looks like `COM3`.
@@ -81,7 +81,26 @@ After the last seam the arm returns to the ready pose.
 | `approach_speed` | 15 | mm/s |
 | `arc_start_dwell`, `crater_dwell` | 0.3, 0.5 | s |
 
-Put any of these in `"defaults"` to apply them to every seam. Optional top-level fields: `tool_length` (overrides `robot.json` for this job) and `safe_pose` (joint angles to finish at).
+Put any of these in `"defaults"` to apply them to every seam.
+
+Optional top-level fields:
+
+| Field | Meaning |
+|---|---|
+| `tool_length` | overrides `robot.json` for this job |
+| `safe_pose` | joint angles to finish at |
+| `keep_out` | list of boxes the wrist must not enter: `{"name": "work block", "min": [x, y, z], "max": [x, y, z]}`. Add the work block, the plates and any fixtures. |
+| `clearance` | extra margin around the keep-out boxes, mm (default 5) |
+
+### Collision check
+
+The J5 motor hangs off the side of the wrist. When the torch leans towards that side, the motor swings down towards the work. Before writing G-code, `plan` checks three parts against every `keep_out` box at every path point:
+
+- the J5 motor
+- the wrist hub
+- the front of the forearm (J4 motor).
+
+If any of them would come within `clearance`, `plan` stops and names the part. For example, with the upright plate of a fillet on the +Y side the J5 motor would hit the work block. That's why `fillet_straight.json` puts the upright plate on the −Y side, which keeps the motor about 40 mm clear. The tool itself is not checked, because it has to touch the work.
 
 ## Placing parts: what the arm likes
 
@@ -111,7 +130,8 @@ The planner never silently flips the wrist. If a path would make a joint jump mo
 | `robot/config.py` | Loads `config/robot.json` (geometry, joints, motors, masses) |
 | `robot/kinematics.py` | Closed-form FK/IK. J1–J3 place the wrist centre, J4–J5 aim the torch. Picks the wrist solution closest to the previous pose. |
 | `robot/weld.py` | Seams → approach/arc/weld/crater/retract operations, torch angles, weave |
-| `robot/gcode.py` | Solves the IK for every sample, checks joint limits, jumps and joint speeds, then writes `G93` inverse-time G-code. `M8`/`M9` are only written with `--arc`. |
+| `robot/collision.py` | Keeps the J5 motor, wrist hub and forearm front out of the job's `keep_out` boxes |
+| `robot/gcode.py` | Solves the IK for every sample, checks joint limits, jumps, collisions and joint speeds, then writes `G93` inverse-time G-code. `M8`/`M9` are only written with `--arc`. |
 | `robot/statics.py` | Gravity torque on each joint over the whole joint range |
 | `robot/firmware.py` | grbl `$` settings from `robot.json` |
 | `robot/sender.py` | USB streaming, homing (`$H` + `G10 L20`), stop (feed hold + reset) |

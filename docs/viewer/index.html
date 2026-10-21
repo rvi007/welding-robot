@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAVI WR-1 Viewer</title>
+<style>
+  :root { --brand: #e8711a; --ink: #e9ecef; --muted: #9aa3ad; --panel: rgba(22, 25, 30, 0.86); }
+  html, body { margin: 0; height: 100%; background: #1b1e23; color: var(--ink);
+               font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
+  #view { position: fixed; inset: 0; }
+  header { position: fixed; top: 16px; left: 16px; display: flex; align-items: baseline; gap: 10px; pointer-events: none; }
+  header b { font-size: 26px; letter-spacing: 0.12em; color: var(--brand); }
+  header span { color: var(--muted); font-size: 14px; }
+  #panel { position: fixed; top: 16px; right: 16px; width: 270px; padding: 14px 16px; background: var(--panel);
+           border-radius: 10px; box-shadow: 0 6px 24px rgba(0,0,0,.35); }
+  #panel h2 { margin: 0 0 8px; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .row { display: grid; grid-template-columns: 74px 1fr 46px; align-items: center; gap: 8px; margin: 6px 0; }
+  .row output { text-align: right; font-variant-numeric: tabular-nums; color: var(--muted); }
+  input[type=range] { width: 100%; accent-color: var(--brand); }
+  .buttons { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  button, select { background: #2a2f37; color: var(--ink); border: 1px solid #3a414b; border-radius: 6px;
+                   padding: 6px 10px; font: inherit; cursor: pointer; }
+  button.primary { background: var(--brand); border-color: var(--brand); color: #1b1e23; font-weight: 600; }
+  #status { margin-top: 10px; color: var(--muted); min-height: 1.4em; }
+  .hide-ui header, .hide-ui #panel { display: none; }
+  @media (max-width: 640px) { #panel { left: 16px; right: 16px; width: auto; top: auto; bottom: 16px; } }
+</style>
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js", "three/addons/": "./vendor/addons/" } }
+</script>
+</head>
+<body>
+<canvas id="view"></canvas>
+<header><b>RAVI</b><span>WR-1 welding robot</span></header>
+<div id="panel">
+  <h2>Joints</h2>
+  <div id="sliders"></div>
+  <h2 style="margin-top:14px">Weld jobs</h2>
+  <div class="buttons">
+    <select id="job">
+      <option value="fillet_straight">T-joint fillet</option>
+      <option value="butt_weave">Butt joint, weave</option>
+      <option value="pipe_fillet">Tube fillet</option>
+      <option value="pen_square">Pen square</option>
+    </select>
+    <button id="play" class="primary">Play</button>
+    <button id="ready">Ready pose</button>
+  </div>
+  <div id="status">Loading models…</div>
+</div>
+<script type="module" src="./viewer.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 category,qty,part,used_for,approx_usd
-motion,2,"NEMA17 48mm stepper + ~27:1 planetary gearbox, 8mm D-shaft","J1 base, J3 elbow",70
-motion,2,"NEMA17 34mm stepper + ~5:1 planetary gearbox, 8mm D-shaft","J4 roll, J5 wrist",55
-motion,1,"NEMA23 56mm stepper + 10:1 planetary gearbox, 14mm keyed shaft",J2 shoulder,80
+motion,2,"NEMA17 48mm 1.68A stepper + 26.85:1 planetary gearbox, 8mm D-shaft (e.g. StepperOnline 17HS19-1684S-PG27)","J1 base, J3 elbow",70
+motion,2,"NEMA17 34mm stepper + 5.18:1 planetary gearbox, 8mm D-shaft (e.g. StepperOnline 17HS13-0404S-PG5)","J4 roll, J5 wrist",55
+motion,1,"NEMA23 56mm 2.8A stepper + 10:1 planetary gearbox, 14mm keyed shaft, bought as one unit",J2 shoulder,80
 motion,2,6008-2RS bearing 40x68x15,J1 turntable,10
 motion,4,608-2RS bearing 8x22x7,J2/J3 idle pivots (2 spare),4
 electronics,1,Arduino Mega 2560,controller,18
@@ -17,6 +17,8 @@ electronics,1,Mains inlet with switch and fuse,power,6
 electronics,1,"Cables, ferrites, connectors, spiral wrap",wiring,30
 hardware,20,M3 heat-set insert,printed parts,8
 hardware,1,"Screw kit: M2, M3, M4, M5 button/socket/countersunk, M8x50, M8x45, nuts, washers, set screws",assembly,25
-printing,2,PETG filament 1kg,printed parts,40
+printing,1,PETG filament 1kg orange,"arm, covers",20
+printing,1,PETG filament 1kg graphite/black,"base, turntable, small parts",20
+printing,1,White paint pen,RAVI lettering,4
 tool,1,12mm pointer rod or laser module,calibration,5
 tool,1,Marker refill + 12mm sleeve,pen tests,2

@@ -1,11 +1,69 @@
 {
   "name": "Tube-to-plate fillet, 50 mm tube, 240 deg arc",
-  "_comment": "50 mm OD tube standing on a plate on the 100 mm work block, tube centre at X=215 Y=0. The arm covers the far side and both flanks (-120..+120 deg). For the near side, turn the part half a turn and run again with start_angle -60 and sweep 120, or add a rotary positioner (Phase 2).",
-  "defaults": {"speed": 5, "travel_angle": 8},
+  "_comment": "50 mm OD x 40 mm tall tube standing on a plate on the 100 mm work block, tube centre at X=215 Y=0. The arm covers the far side and both flanks (-120..+120 deg). For the near side, turn the part half a turn and run again with start_angle -60 and sweep 120, or add a rotary positioner (Phase 2). A taller tube gets in the way of the forearm on the far side: the planner reports it.",
+  "defaults": {
+    "speed": 5,
+    "travel_angle": 8
+  },
+  "keep_out": [
+    {
+      "name": "work block",
+      "min": [
+        160,
+        -95,
+        0
+      ],
+      "max": [
+        300,
+        95,
+        96
+      ]
+    },
+    {
+      "name": "base plate",
+      "min": [
+        170,
+        -45,
+        96
+      ],
+      "max": [
+        290,
+        45,
+        100
+      ]
+    },
+    {
+      "name": "tube",
+      "min": [
+        190,
+        -25,
+        100
+      ],
+      "max": [
+        240,
+        25,
+        140
+      ]
+    }
+  ],
   "seams": [
-    {"name": "tube", "type": "circle",
-     "center": [215, 0, 100], "axis": [0, 0, 1], "radius": 25,
-     "start_angle": -120, "sweep": 240,
-     "normal": "fillet_outside"}
+    {
+      "name": "tube",
+      "type": "circle",
+      "center": [
+        215,
+        0,
+        100
+      ],
+      "axis": [
+        0,
+        0,
+        1
+      ],
+      "radius": 25,
+      "start_angle": -120,
+      "sweep": 240,
+      "normal": "fillet_outside"
+    }
   ]
 }

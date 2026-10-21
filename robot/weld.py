@@ -81,6 +81,8 @@ class Plan:
     name: str
     ops: list = field(default_factory=list)
     tool: float | None = None
+    keep_out: list = field(default_factory=list)   # [{"name", "min": [x,y,z], "max": [x,y,z]}]
+    clearance: float = 5.0                         # mm the wrist must stay away from keep-out boxes
 
     def weld_length(self) -> float:
         """Total length of TCP path travelled with the arc on (mm)."""
@@ -250,7 +252,8 @@ def plan_seam(seam: dict, defaults: dict) -> list:
 
 
 def plan_job(job: dict) -> Plan:
-    plan = Plan(name=job.get("name", "job"), tool=job.get("tool_length"))
+    plan = Plan(name=job.get("name", "job"), tool=job.get("tool_length"),
+                keep_out=job.get("keep_out", []), clearance=job.get("clearance", 5.0))
     defaults = job.get("defaults", {})
     for seam in job["seams"]:
         plan.ops += plan_seam(seam, defaults)
